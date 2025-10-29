@@ -98,6 +98,12 @@ jobs:
           wget -q https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v0.17.2/zephyr-sdk-0.17.2_linux-x86_64_minimal.tar.xz
           tar xf zephyr-sdk-0.17.2_linux-x86_64_minimal.tar.xz -C ~/
           ~/zephyr-sdk-0.17.2/setup.sh -c -t arm-zephyr-eabi
+      - name: 🧩 Install Nordic CLI Tools
+        run: |
+          wget https://developer.nordicsemi.com/.pc-tools/nrf-command-line-tools/nrf-command-line-tools-10.23.0_Linux-amd64.tar.gz
+          tar -xzf nrf-command-line-tools-10.23.0_Linux-amd64.tar.gz
+          sudo cp nrf-command-line-tools-10.23.0_Linux-amd64/mergehex /usr/local/bin/
+
 
       - name: ♻️ Initialize Zephyr Workspace
         # Set up the Zephyr workspace and install the Python dependencies
@@ -281,7 +287,7 @@ jobs:
           cd zephyr-workspace/Releases
           mv ${{ matrix.boards.filename }}.hex zephyr.hex
           wget -O bootloader.hex ${{ matrix.boards.mergehex }}
-          west mergehex --output ${{ matrix.boards.filename }}.${{ matrix.boards.fileformat }} bootloader.hex zephyr.hex
+          mergehex -m bootloader.hex zephyr.hex -o ${{ matrix.boards.filename }}.${{ matrix.boards.fileformat }}
           rm bootloader.hex
           rm zephyr.hex
 
