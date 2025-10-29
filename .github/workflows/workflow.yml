@@ -24,10 +24,10 @@ jobs:
       fail-fast: false
       matrix:
         boards: [
-                  {boardname: "mochi_uf2/nrf52833", clk: "enabled", type: "tracker", extraaction: "enabled", fileformat: "uf2", filename: "SlimeNRF_Tracker_Mochi", mergehex:"", magnetometer: "disabled", sleep: "enabled", sw0: "enabled"}, 
-                  {boardname: "mochi_uf2/nrf52833", clk: "enabled", type: "tracker", extraaction: "enabled", fileformat: "uf2", filename: "SlimeNRF_Tracker_NoSleep_Mochi", mergehex:"", magnetometer: "disabled", sleep: "disabled", sw0: "enabled"},
-                  {boardname: "mochi_uf2/nrf52833", clk: "enabled", type: "tracker", extraaction: "enabled", fileformat: "hex", filename: "SlimeNRF_Tracker_Mochi", mergehex:"https://github.com/Shine-Bright-Meow/Adafruit_nRF52_Bootloader/releases/download/0.9.2-SlimeVR.7/mochaelec_mochi_bootloader-0.9.2-SlimeVR.7_s140_7.3.0.hex", magnetometer: "disabled", sleep: "enabled", sw0: "enabled"}, 
-                  {boardname: "mochi_uf2/nrf52833", clk: "enabled", type: "tracker", extraaction: "enabled", fileformat: "hex", filename: "SlimeNRF_Tracker_NoSleep_Mochi", mergehex:"https://github.com/Shine-Bright-Meow/Adafruit_nRF52_Bootloader/releases/download/0.9.2-SlimeVR.7/mochaelec_mochi_bootloader-0.9.2-SlimeVR.7_s140_7.3.0.hex", magnetometer: "disabled", sleep: "disabled", sw0: "enabled"}, 
+                  {boardname: "mochi_uf2/nrf52833", clk: "enabled", type: "tracker", extraaction: "enabled", fileformat: "uf2", filename: "SlimeNRF_Tracker_Mochi", mergehex: "", magnetometer: "disabled", sleep: "enabled", sw0: "enabled"}, 
+                  {boardname: "mochi_uf2/nrf52833", clk: "enabled", type: "tracker", extraaction: "enabled", fileformat: "uf2", filename: "SlimeNRF_Tracker_NoSleep_Mochi", mergehex: "", magnetometer: "disabled", sleep: "disabled", sw0: "enabled"},
+                  {boardname: "mochi_uf2/nrf52833", clk: "enabled", type: "tracker", extraaction: "enabled", fileformat: "hex", filename: "SlimeNRF_Tracker_Mochi", mergehex: "https://github.com/Shine-Bright-Meow/Adafruit_nRF52_Bootloader/releases/download/0.9.2-SlimeVR.7/mochaelec_mochi_bootloader-0.9.2-SlimeVR.7_s140_7.3.0.hex", magnetometer: "disabled", sleep: "enabled", sw0: "enabled"}, 
+                  {boardname: "mochi_uf2/nrf52833", clk: "enabled", type: "tracker", extraaction: "enabled", fileformat: "hex", filename: "SlimeNRF_Tracker_NoSleep_Mochi", mergehex: "https://github.com/Shine-Bright-Meow/Adafruit_nRF52_Bootloader/releases/download/0.9.2-SlimeVR.7/mochaelec_mochi_bootloader-0.9.2-SlimeVR.7_s140_7.3.0.hex", magnetometer: "disabled", sleep: "disabled", sw0: "enabled"}, 
                 ]
     if: always()
     runs-on: ubuntu-latest
@@ -276,7 +276,7 @@ jobs:
 
       - name: 🔀 Merge Hex - ${{ matrix.boards.boardname }}
       # Combining Bootloader and Firmware Build
-        if: ${{ (matrix.boards.fileformat == 'hex') && (matrix.boards.mergehex) }}
+        if: ${{ (matrix.boards.fileformat == 'hex') && (matrix.boards.mergehex != '') }}
         run: |
           cd Releases
           mv ${{ matrix.boards.filename }}.hex zephyr.hex
