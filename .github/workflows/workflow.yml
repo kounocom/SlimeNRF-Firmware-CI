@@ -100,12 +100,10 @@ jobs:
           ~/zephyr-sdk-0.17.2/setup.sh -c -t arm-zephyr-eabi
       - name: 🧩 Install Nordic CLI Tools
         run: |
-          wget https://nsscprodmedia.blob.core.windows.net/prod/software-and-other-downloads/desktop-software/nrf-command-line-tools/sw/versions-10-x-x/10-24-2/nrf-command-line-tools-10.24.2_linux-amd64.tar.gz
-          tar -xzf nrf-command-line-tools-10.24.2_linux-amd64.tar.gz
-          cp nrf-command-line-tools-10.24.2_linux-amd64/nrf-command-line-tools/bin/mergehex ~/.local/bin/
-          chmod +x ~/.local/bin/mergehex
-          echo "$HOME/.local/bin" >> $GITHUB_PATH
-          which mergehex && mergehex --version
+          wget -qO nrf-command-line-tools.tar.gz https://nsscprodmedia.blob.core.windows.net/prod/software-and-other-downloads/desktop-software/nrf-command-line-tools/sw/versions-10-x-x/10-24-2/nrf-command-line-tools-10.24.2_linux-amd64.tar.gz
+          tar -xzf nrf-command-line-tools.tar.gz
+          sudo cp nrf-command-line-tools-*/nrf-command-line-tools/bin/mergehex /usr/local/bin/
+          sudo chmod +x /usr/local/bin/mergehex
 
       - name: ♻️ Initialize Zephyr Workspace
         # Set up the Zephyr workspace and install the Python dependencies
