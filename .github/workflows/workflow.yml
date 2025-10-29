@@ -100,9 +100,9 @@ jobs:
           ~/zephyr-sdk-0.17.2/setup.sh -c -t arm-zephyr-eabi
       - name: 🧩 Install Nordic CLI Tools
         run: |
-          wget https://developer.nordicsemi.com/.pc-tools/nrf-command-line-tools/nrf-command-line-tools-10.23.0_Linux-amd64.tar.gz
-          tar -xzf nrf-command-line-tools-10.23.0_Linux-amd64.tar.gz
-          sudo cp nrf-command-line-tools-10.23.0_Linux-amd64/mergehex /usr/local/bin/
+          wget https://nsscprodmedia.blob.core.windows.net/prod/software-and-other-downloads/desktop-software/nrf-command-line-tools/sw/versions-10-x-x/10-24-2/nrf-command-line-tools-10.24.2_linux-amd64.tar.gz
+          tar -xzf nrf-command-line-tools-10.24.2_linux-amd64.tar.gz
+          sudo cp nrf-command-line-tools-10.24.2_linux-amd64/mergehex /usr/local/bin/
 
 
       - name: ♻️ Initialize Zephyr Workspace
@@ -288,8 +288,7 @@ jobs:
           mv ${{ matrix.boards.filename }}.hex zephyr.hex
           wget -O bootloader.hex ${{ matrix.boards.mergehex }}
           mergehex -m bootloader.hex zephyr.hex -o ${{ matrix.boards.filename }}.${{ matrix.boards.fileformat }}
-          rm bootloader.hex
-          rm zephyr.hex
+          rm bootloader.hex zephyr.hex
 
       - name: 💾 Upload Artifact - ${{ matrix.boards.boardname }}
         if: always()
