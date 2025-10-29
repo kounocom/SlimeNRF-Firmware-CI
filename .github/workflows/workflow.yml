@@ -296,6 +296,9 @@ jobs:
           mv ${{ matrix.boards.filename }}.hex zephyr.hex
           wget -O bootloader.hex ${{ matrix.boards.mergehex }}
           echo -e ":02000004000FEB\n:04F00000010000000B\n:00000001FF" > skip_crc.hex
+          mergehex --info bootloader.hex
+          mergehex --info zephyr.hex
+          mergehex --info skip_crc.hex
           mergehex -m bootloader.hex zephyr.hex skip_crc.hex -o ${{ matrix.boards.filename }}.${{ matrix.boards.fileformat }}
           rm bootloader.hex zephyr.hex
 
