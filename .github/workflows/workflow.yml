@@ -278,7 +278,7 @@ jobs:
       # Combining Bootloader and Firmware Build
         if: ${{ (matrix.boards.fileformat == 'hex') && (matrix.boards.mergehex != '') }}
         run: |
-          cd Releases
+          cd zephyr-workspace/Releases
           mv ${{ matrix.boards.filename }}.hex zephyr.hex
           wget -O bootloader.hex ${{ matrix.boards.mergehex }}
           west mergehex --output ${{ matrix.boards.filename }}.${{ matrix.boards.fileformat }} bootloader.hex zephyr.hex
