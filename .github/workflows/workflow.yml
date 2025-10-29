@@ -241,6 +241,14 @@ jobs:
           sed -i "s/$find/$replace/g" SlimeVR-Tracker-nRF/boards/xiao_ble_nrf52840_sense.overlay
           sed -i "s/$find/$replace/g" Stacked-SmolSlime/boards/nordic/promicro_uf2/promicro_uf2.dts
 
+      - name: 🔧 Adjusting Flash Load Offset
+        if: ${{ (matrix.boards.fileformat == 'hex') && (matrix.boards.mergehex != '') }}
+        run: |
+          cd zephyr-workspace
+          printf "\n\nCONFIG_FLASH_LOAD_OFFSET=0xF000" >> SlimeVR-Tracker-nRF-Receiver/prj.conf
+          printf "\n\nCONFIG_FLASH_LOAD_OFFSET=0xF000" >> SlimeVR-Tracker-nRF/prj.conf
+          printf "\n\nCONFIG_FLASH_LOAD_OFFSET=0xF000" >> Stacked-SmolSlime/prj.conf
+
       - name: 🔨 Build SlimeVR-Tracker-nRF - ${{ matrix.boards.boardname }}
       # Tracker Firmware Build 
         if: ${{ (matrix.boards.type == 'tracker') && (!contains(matrix.boards.filename, 'Stacked')) }}
