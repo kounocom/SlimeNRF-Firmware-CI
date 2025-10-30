@@ -298,9 +298,12 @@ jobs:
           cd zephyr-workspace/Releases
           mv ${{ matrix.boards.filename }}.hex zephyr.hex
           wget -O bootloader.hex ${{ matrix.boards.mergehex }}
-          printf ":02000004000FEC\n:04F0000001000000B1\n:00000001FF\n" > skip_crc.hex
-          tail -c 1 skip_crc.hex | od -An -t x1
-          pip install intelhex
+          printf ":02000004000FE7\n:04F00000010000000B\n:00000001FF\n" > skip_crc.hex
+          python3 - <<'PY'
+          from intelhex import IntelHex
+          ih = IntelHex("skip_crc.hex")
+          print("✅ Parsed OK. Address range:", hex(ih.minaddr()), "-", hex(ih.maxaddr()))
+          PY
           python3 <<'EOF'
           from intelhex import IntelHex
           bl = IntelHex("bootloader.hex")
