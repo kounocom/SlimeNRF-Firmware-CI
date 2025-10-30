@@ -298,7 +298,7 @@ jobs:
           cd zephyr-workspace/Releases
           mv ${{ matrix.boards.filename }}.hex zephyr.hex
           wget -O bootloader.hex ${{ matrix.boards.mergehex }}
-          printf ":02000004000FE7\n:04F00000010000000B\n:00000001FF\n" > skip_crc.hex
+          printf ":02000004000FEB\n:04F00000010000000B\n:00000001FF\n" > skip_crc.hex
           python3 <<'EOF'
           from intelhex import IntelHex
           bl = IntelHex("bootloader.hex")
@@ -309,8 +309,8 @@ jobs:
           merged.write_hex_file("merged.hex")
           print("✅ Created merged.hex")
           EOF
-          mv merged.hex ${{ matrix.boards.filename }}.${{ matrix.boards.fileformat }}
-          rm bootloader.hex zephyr.hex skip_crc.hex
+          mergehex -m merged.hex crc_skip.hex -o ${{ matrix.boards.filename }}.${{ matrix.boards.fileformat }}
+          rm bootloader.hex zephyr.hex skip_crc.hex merged.hex
 
       - name: 💾 Upload Artifact - ${{ matrix.boards.boardname }}
         if: always()
