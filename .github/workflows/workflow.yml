@@ -298,7 +298,7 @@ jobs:
           mv ${{ matrix.boards.filename }}.hex zephyr.hex
           wget -O bootloader.hex ${{ matrix.boards.mergehex }}
           printf ":02000004000FEC\n:04F0000001000000B1\n:00000001FF\n" > skip_crc.hex
-          arm-none-eabi-objcopy -I binary -O ihex --change-addresses 0x1000 zephyr.bin zephyr_fixed.hex
+          srec_cat zephyr.bin -Binary -offset 0x1000 -o zephyr_fixed.hex -Intel
           mergehex -m bootloader.hex zephyr_fixed.hex crc_skip.hex -o ${{ matrix.boards.filename }}.${{ matrix.boards.fileformat }}
           rm bootloader.hex zephyr.hex skip_crc.hex
 
