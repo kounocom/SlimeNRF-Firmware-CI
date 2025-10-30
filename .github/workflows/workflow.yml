@@ -305,7 +305,7 @@ jobs:
           from intelhex import IntelHex
           bl = IntelHex("bootloader.hex")
           app = IntelHex("zephyr.hex")
-          crc = IntelHex("crc_skip.hex")
+          crc = IntelHex("skip_crc.hex")
           merged = IntelHex()
           merged.merge(bl, overlap='ignore')
           merged.merge(app, overlap='replace')
