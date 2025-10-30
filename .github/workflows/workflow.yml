@@ -302,7 +302,7 @@ jobs:
           srec_cat bootloader.hex -intel -crop 0x0000 0x0FFF -o bootloader_p0.hex -intel
           srec_cat bootloader.hex -intel -crop 0x74000 0x7FFFF -o bootloader_p1.hex -intel
           srec_cat bootloader_p0.hex -intel bootloader_p1.hex -intel -o bootloader_trim.hex -intel
-          mergehex -m bootloader_trim.hex zephyr.hex crc_skip.hex -o ${{ matrix.boards.filename }}.${{ matrix.boards.fileformat }}
+          mergehex -m bootloader_trim.hex zephyr.hex skip_crc.hex -o ${{ matrix.boards.filename }}.${{ matrix.boards.fileformat }}
           rm bootloader.hex zephyr.hex skip_crc.hex
 
       - name: 💾 Upload Artifact - ${{ matrix.boards.boardname }}
