@@ -86,6 +86,7 @@ jobs:
           # future steps
           echo "PATH=$PATH" >> $GITHUB_ENV
           pip3 install west ninja
+          pip3 install intelhex
 
       - name: 🪁 Install Zephyr SDK
         # Fetch the Zephyr SDK from the GitHub Release artifact, unpack it and
@@ -298,8 +299,10 @@ jobs:
           mv ${{ matrix.boards.filename }}.hex zephyr.hex
           wget -O bootloader.hex ${{ matrix.boards.mergehex }}
           printf ":02000004000FEC\n:04F0000001000000B1\n:00000001FF\n" > skip_crc.hex
-          srec_cat zephyr.bin -Binary -offset 0x1000 -o zephyr_fixed.hex -Intel
-          mergehex -m bootloader.hex zephyr_fixed.hex crc_skip.hex -o ${{ matrix.boards.filename }}.${{ matrix.boards.fileformat }}
+          srec_cat bootloader.hex -intel -crop 0x0000 0x0FFF -o bootloader_p0.hex -intel
+          srec_cat bootloader.hex -intel -crop 0x74000 0x7FFFF -o bootloader_p1.hex -intel
+          srec_cat bootloader_p0.hex -intel bootloader_p1.hex -intel -o bootloader_trim.hex -intel
+          mergehex -m bootloader_trim.hex zephyr.hex crc_skip.hex -o ${{ matrix.boards.filename }}.${{ matrix.boards.fileformat }}
           rm bootloader.hex zephyr.hex skip_crc.hex
 
       - name: 💾 Upload Artifact - ${{ matrix.boards.boardname }}
