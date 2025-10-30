@@ -299,20 +299,13 @@ jobs:
           mv ${{ matrix.boards.filename }}.hex zephyr.hex
           wget -O bootloader.hex ${{ matrix.boards.mergehex }}
           printf ":02000004000FE7\n:04F00000010000000B\n:00000001FF\n" > skip_crc.hex
-          python3 - <<'PY'
-          from intelhex import IntelHex
-          ih = IntelHex("skip_crc.hex")
-          print("✅ Parsed OK. Address range:", hex(ih.minaddr()), "-", hex(ih.maxaddr()))
-          PY
           python3 <<'EOF'
           from intelhex import IntelHex
           bl = IntelHex("bootloader.hex")
           app = IntelHex("zephyr.hex")
-          crc = IntelHex("skip_crc.hex")
           merged = IntelHex()
           merged.merge(bl, overlap='ignore')
           merged.merge(app, overlap='replace')
-          merged.merge(crc, overlap='replace')
           merged.write_hex_file("merged.hex")
           print("✅ Created merged.hex")
           EOF
