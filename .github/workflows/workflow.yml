@@ -289,8 +289,8 @@ jobs:
           mv ${{ matrix.boards.filename }}.hex zephyr.hex
           wget -O bootloader.hex ${{ matrix.boards.mergehex }}
           printf ":02000004000FEC\n:04F0000001000000B1\n:00000001FF\n" > skip_crc.hex
-          srec_cat bootloader.hex -intel zephyr.hex -intel -allow-multiple crc_skip.hex -intel -o ${{ matrix.boards.filename }}.${{ matrix.boards.fileformat }} -intel
-          srec_info ${{ matrix.boards.filename }}.${{ matrix.boards.fileformat }}
+          mergehex --ihex zephyr.hex --bin zephyr.bin
+          mergehex -m bootloader.hex -b 0x1000 zephyr.bin crc_skip.hex -o ${{ matrix.boards.filename }}.${{ matrix.boards.fileformat }}
           rm bootloader.hex zephyr.hex skip_crc.hex
 
       - name: 💾 Upload Artifact - ${{ matrix.boards.boardname }}
