@@ -309,7 +309,7 @@ jobs:
           merged.write_hex_file("merged.hex")
           print("✅ Created merged.hex")
           EOF
-          mergehex -m merged.hex crc_skip.hex -o ${{ matrix.boards.filename }}.${{ matrix.boards.fileformat }}
+          mergehex -m merged.hex skip_crc.hex -o ${{ matrix.boards.filename }}.${{ matrix.boards.fileformat }}
           rm bootloader.hex zephyr.hex skip_crc.hex merged.hex
 
       - name: 💾 Upload Artifact - ${{ matrix.boards.boardname }}
