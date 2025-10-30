@@ -242,6 +242,14 @@ jobs:
           sed -i "s/$find/$replace/g" SlimeVR-Tracker-nRF/boards/xiao_ble_nrf52840_sense.overlay
           sed -i "s/$find/$replace/g" Stacked-SmolSlime/boards/nordic/promicro_uf2/promicro_uf2.dts
 
+      - name: 🔧 Build BIN file
+        if: ${{ (matrix.boards.fileformat == 'hex') && (matrix.boards.mergehex != '') }}
+        run: |
+          cd zephyr-workspace
+          printf "\n\nCONFIG_BUILD_OUTPUT_BIN=y" >> SlimeVR-Tracker-nRF-Receiver/prj.conf
+          printf "\n\nCONFIG_BUILD_OUTPUT_BIN=y" >> SlimeVR-Tracker-nRF/prj.conf
+          printf "\n\nCONFIG_BUILD_OUTPUT_BIN=y" >> Stacked-SmolSlime/prj.conf
+
       - name: 🔨 Build SlimeVR-Tracker-nRF - ${{ matrix.boards.boardname }}
       # Tracker Firmware Build 
         if: ${{ (matrix.boards.type == 'tracker') && (!contains(matrix.boards.filename, 'Stacked')) }}
@@ -259,6 +267,7 @@ jobs:
               -DBOARD_ROOT=../SlimeVR-Tracker-nRF
 
           mv SlimeVR-Tracker-nRF/build/SlimeVR-Tracker-nRF/zephyr/zephyr.${{ matrix.boards.fileformat }} Releases/${{ matrix.boards.filename }}.${{ matrix.boards.fileformat }}
+          mv SlimeVR-Tracker-nRF/build/SlimeVR-Tracker-nRF/zephyr/zephyr.bin Releases/zephyr.bin
 
       - name: 🔨 Build Stacked-SmolSlime - ${{ matrix.boards.boardname }}
       # Tracker Firmware Build 
@@ -289,8 +298,7 @@ jobs:
           mv ${{ matrix.boards.filename }}.hex zephyr.hex
           wget -O bootloader.hex ${{ matrix.boards.mergehex }}
           printf ":02000004000FEC\n:04F0000001000000B1\n:00000001FF\n" > skip_crc.hex
-          mergehex --ihex zephyr.hex --bin zephyr.bin
-          mergehex -m bootloader.hex -b 0x1000 zephyr.bin crc_skip.hex -o ${{ matrix.boards.filename }}.${{ matrix.boards.fileformat }}
+          mergehex -m bootloader.hex zephyr.bin crc_skip.hex -o ${{ matrix.boards.filename }}.${{ matrix.boards.fileformat }}
           rm bootloader.hex zephyr.hex skip_crc.hex
 
       - name: 💾 Upload Artifact - ${{ matrix.boards.boardname }}
