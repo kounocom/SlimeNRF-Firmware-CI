@@ -250,6 +250,9 @@ jobs:
           printf "\n\nCONFIG_BUILD_OUTPUT_BIN=y" >> SlimeVR-Tracker-nRF-Receiver/prj.conf
           printf "\n\nCONFIG_BUILD_OUTPUT_BIN=y" >> SlimeVR-Tracker-nRF/prj.conf
           printf "\n\nCONFIG_BUILD_OUTPUT_BIN=y" >> Stacked-SmolSlime/prj.conf
+          printf "\n\nCONFIG_FLASH_LOAD_OFFSET=0x10000" >> SlimeVR-Tracker-nRF-Receiver/prj.conf
+          printf "\n\nCONFIG_FLASH_LOAD_OFFSET=0x10000" >> SlimeVR-Tracker-nRF/prj.conf
+          printf "\n\nCONFIG_FLASH_LOAD_OFFSET=0x10000" >> Stacked-SmolSlime/prj.conf
 
       - name: 🔨 Build SlimeVR-Tracker-nRF - ${{ matrix.boards.boardname }}
       # Tracker Firmware Build 
@@ -293,7 +296,7 @@ jobs:
 
       - name: 🔀 Merge Hex - ${{ matrix.boards.boardname }}
       # Combining Bootloader and Firmware Build
-        if: ${{ (matrix.boards.fileformat == 'hex') && (matrix.boards.mergehex != '') }}
+        if: ${{ (matrix.boards.fileformat == 'hex') && (matrix.boards.mergehex != '') && (matrix.boards.fileformat == 'uf2') }}
         run: |
           cd zephyr-workspace/Releases
           mv ${{ matrix.boards.filename }}.hex zephyr.hex
