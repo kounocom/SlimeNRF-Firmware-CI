@@ -257,9 +257,7 @@ jobs:
           sed -i "s|$find|$replace|g" SlimeVR-Tracker-nRF/boards/nordic/promicro_uf2/promicro_uf2.dts
           sed -i "s|$find|$replace|g" SlimeVR-Tracker-nRF/boards/xiao_ble.overlay
           sed -i "s|$find|$replace|g" SlimeVR-Tracker-nRF/boards/xiao_ble_nrf52840_sense.overlay
-          sed -i "s|$find|$replace|g" Stacked-SmolSlime/boards/nordic/promicro_uf2/promicro_uf2.dts
           printf "\n\nCONFIG_USE_SENSOR_CLOCK=n" >> SlimeVR-Tracker-nRF/prj.conf
-          printf "\n\nCONFIG_USE_SENSOR_CLOCK=n" >> Stacked-SmolSlime/prj.conf
 
       - name: 🔧 Enabling External Clock
         if: ${{ (matrix.boards.type == 'tracker') && (matrix.boards.clk == 'enabled') }}
@@ -269,37 +267,31 @@ jobs:
           replace="clk-gpios"
           sed -i "s/$find/$replace/g" SlimeVR-Tracker-nRF/boards/nordic/promicro_uf2/promicro_uf2.dts
           sed -i "s/$find/$replace/g" SlimeVR-Tracker-nRF/boards/xiao_ble.overlay
-          sed -i "s/$find/$replace/g" Stacked-SmolSlime/boards/nordic/promicro_uf2/promicro_uf2.dts
           printf "\n\nCONFIG_USE_SENSOR_CLOCK=y" >> SlimeVR-Tracker-nRF/prj.conf
-          printf "\n\nCONFIG_USE_SENSOR_CLOCK=y" >> Stacked-SmolSlime/prj.conf
 
       - name: 🔧 Disabling Extra Action
         if: ${{ (matrix.boards.type == 'tracker') && (matrix.boards.extraaction == 'disabled') }}
         run: |
           cd zephyr-workspace
           printf "\n\nCONFIG_USER_EXTRA_ACTIONS=n" >> SlimeVR-Tracker-nRF/prj.conf
-          printf "\n\nCONFIG_USER_EXTRA_ACTIONS=n" >> Stacked-SmolSlime/prj.conf
 
       - name: 🔧 Enabling Extra Action
         if: ${{ (matrix.boards.type == 'tracker') && (matrix.boards.extraaction == 'enabled') }}
         run: |
           cd zephyr-workspace
           printf "\n\nCONFIG_USER_EXTRA_ACTIONS=y" >> SlimeVR-Tracker-nRF/prj.conf
-          printf "\n\nCONFIG_USER_EXTRA_ACTIONS=y" >> Stacked-SmolSlime/prj.conf
 
       - name: 🔧 Disabling Magnetometer
         if: ${{ (matrix.boards.type == 'tracker') && (matrix.boards.magnetometer == 'disabled') }}
         run: |
           cd zephyr-workspace
           printf "\n\nCONFIG_SENSOR_USE_MAG=n" >> SlimeVR-Tracker-nRF/prj.conf
-          printf "\n\nCONFIG_SENSOR_USE_MAG=n" >> Stacked-SmolSlime/prj.conf
 
       - name: 🔧 Enabling Magnetometer
         if: ${{ (matrix.boards.type == 'tracker') && (matrix.boards.magnetometer == 'enabled') }}
         run: |
           cd zephyr-workspace
           printf "\n\nCONFIG_SENSOR_USE_MAG=y" >> SlimeVR-Tracker-nRF/prj.conf
-          printf "\n\nCONFIG_SENSOR_USE_MAG=y" >> Stacked-SmolSlime/prj.conf
 
       - name: 🔧 Disabling Sleep
         if: ${{ (matrix.boards.type == 'tracker') && (matrix.boards.sleep == 'disabled') }}
@@ -309,10 +301,6 @@ jobs:
           printf "\n\nCONFIG_USE_ACTIVE_TIMEOUT=n" >> SlimeVR-Tracker-nRF/prj.conf
           printf "\n\nCONFIG_SENSOR_LP_TIMEOUT=300000" >> SlimeVR-Tracker-nRF/prj.conf
           printf "\n\nCONFIG_SENSOR_USE_LOW_POWER_2=n" >> SlimeVR-Tracker-nRF/prj.conf
-          printf "\n\nCONFIG_USE_IMU_WAKE_UP=n" >> Stacked-SmolSlime/prj.conf
-          printf "\n\nCONFIG_USE_ACTIVE_TIMEOUT=n" >> Stacked-SmolSlime/prj.conf
-          printf "\n\nCONFIG_SENSOR_LP_TIMEOUT=300000" >> Stacked-SmolSlime/prj.conf
-          printf "\n\nCONFIG_SENSOR_USE_LOW_POWER_2=n" >> Stacked-SmolSlime/prj.conf
 
       - name: 🔧 Enabling Sleep
         if: ${{ (matrix.boards.type == 'tracker') && (matrix.boards.sleep == 'enabled') }}
@@ -320,8 +308,6 @@ jobs:
           cd zephyr-workspace
           printf "\n\nCONFIG_USE_IMU_WAKE_UP=y" >> SlimeVR-Tracker-nRF/prj.conf
           printf "\n\nCONFIG_USE_ACTIVE_TIMEOUT=y" >> SlimeVR-Tracker-nRF/prj.conf
-          printf "\n\nCONFIG_USE_IMU_WAKE_UP=y" >> Stacked-SmolSlime/prj.conf
-          printf "\n\nCONFIG_USE_ACTIVE_TIMEOUT=y" >> Stacked-SmolSlime/prj.conf
 
       - name: 🔧 Disabling SW0 Button
         if: ${{ (matrix.boards.type == 'tracker') && (matrix.boards.sw0 == 'disabled') }}
@@ -332,7 +318,6 @@ jobs:
           sed -i "s|$find|$replace|g" SlimeVR-Tracker-nRF/boards/nordic/promicro_uf2/promicro_uf2.dts
           sed -i "s|$find|$replace|g" SlimeVR-Tracker-nRF/boards/xiao_ble.overlay
           sed -i "s|$find|$replace|g" SlimeVR-Tracker-nRF/boards/xiao_ble_nrf52840_sense.overlay
-          sed -i "s|$find|$replace|g" Stacked-SmolSlime/boards/nordic/promicro_uf2/promicro_uf2.dts
 
       - name: 🔧 Enabling SW0 Button
         if: ${{ (matrix.boards.type == 'tracker') && (matrix.boards.sw0 == 'enabled') }}
@@ -343,7 +328,6 @@ jobs:
           sed -i "s/$find/$replace/g" SlimeVR-Tracker-nRF/boards/nordic/promicro_uf2/promicro_uf2.dts
           sed -i "s/$find/$replace/g" SlimeVR-Tracker-nRF/boards/xiao_ble.overlay
           sed -i "s/$find/$replace/g" SlimeVR-Tracker-nRF/boards/xiao_ble_nrf52840_sense.overlay
-          sed -i "s/$find/$replace/g" Stacked-SmolSlime/boards/nordic/promicro_uf2/promicro_uf2.dts
 
       - name: 🔧 Adjusting Flash Load Offset
         if: ${{ (matrix.boards.fileformat == 'hex') && (matrix.boards.mergehex != '') }}
@@ -351,11 +335,10 @@ jobs:
           cd zephyr-workspace
           printf "\n\nCONFIG_FLASH_LOAD_OFFSET=0xF000" >> SlimeVR-Tracker-nRF-Receiver/prj.conf
           printf "\n\nCONFIG_FLASH_LOAD_OFFSET=0xF000" >> SlimeVR-Tracker-nRF/prj.conf
-          printf "\n\nCONFIG_FLASH_LOAD_OFFSET=0xF000" >> Stacked-SmolSlime/prj.conf
 
       - name: 🔨 Build SlimeVR-Tracker-nRF - ${{ matrix.boards.boardname }}
       # Tracker Firmware Build 
-        if: ${{ (matrix.boards.type == 'tracker') && (!contains(matrix.boards.filename, 'Stacked')) }}
+        if: ${{ (matrix.boards.type == 'tracker') }}
         run: |
           cd zephyr-workspace
           sudo rm -rf SlimeVR-Tracker-nRF/build
@@ -370,27 +353,6 @@ jobs:
               -DBOARD_ROOT=../SlimeVR-Tracker-nRF
 
           mv SlimeVR-Tracker-nRF/build/SlimeVR-Tracker-nRF/zephyr/zephyr.${{ matrix.boards.fileformat }} Releases/${{ matrix.boards.filename }}.${{ matrix.boards.fileformat }}
-
-      - name: 🔨 Build Stacked-SmolSlime - ${{ matrix.boards.boardname }}
-      # Tracker Firmware Build 
-        if: ${{ (matrix.boards.type == 'tracker') && (contains(matrix.boards.filename, 'Stacked')) }}
-        run: |
-          cd zephyr-workspace
-          sudo cp -r SlimeVR-Tracker-nRF/vqf-c Stacked-SmolSlime/
-          sudo cp -r SlimeVR-Tracker-nRF/Fusion Stacked-SmolSlime/
-          sudo cp -r SlimeVR-Tracker-nRF/NXP-ISSDK-SensorFusion Stacked-SmolSlime/
-          sudo rm -rf Stacked-SmolSlime/build
-          mkdir Stacked-SmolSlime/build
-
-          west build \
-              --board ${{ matrix.boards.boardname }} \
-              --pristine=always Stacked-SmolSlime \
-              --build-dir Stacked-SmolSlime/build \
-              -- \
-              -DNCS_TOOLCHAIN_VERSION=NONE \
-              -DBOARD_ROOT=../Stacked-SmolSlime
-
-          mv Stacked-SmolSlime/build/Stacked-SmolSlime/zephyr/zephyr.${{ matrix.boards.fileformat }} Releases/${{ matrix.boards.filename }}.${{ matrix.boards.fileformat }}
 
       - name: 🔀 Merge Hex - ${{ matrix.boards.boardname }}
       # Combining Bootloader and Firmware Build
