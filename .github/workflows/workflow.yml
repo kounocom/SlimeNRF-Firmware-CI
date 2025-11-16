@@ -1,10 +1,10 @@
 on:
   pull_request:
     branches:
-      - main
+      - before-clang
   push:
     branches:
-      - main
+      - before-clang
   create:
   workflow_dispatch:
   schedule:
