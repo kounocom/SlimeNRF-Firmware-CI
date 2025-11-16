@@ -7,8 +7,6 @@ on:
       - main
   create:
   workflow_dispatch:
-  schedule:
-    - cron: "30 */12 * * *"
 
 # Allow one concurrent deployment
 concurrency:
