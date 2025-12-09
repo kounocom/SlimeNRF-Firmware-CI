@@ -5,8 +5,8 @@ manifest:
     # nRF-Connect SDK
     - name: sdk-nrf
       path: nrf
-      url: https://github.com/nrfconnect/sdk-zephyr.git
-      revision: main
+      url: https://github.com/SlimeVR/sdk-nrf
+      revision: slimevr-esb
       import: true
 
     # SlimeVR-Tracker-nRF-Receiver
