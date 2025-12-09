@@ -1,10 +1,10 @@
 on:
   pull_request:
     branches:
-      - before-clang
+      - tdma
   push:
     branches:
-      - before-clang
+      - tdma
   create:
   workflow_dispatch:
   schedule:
