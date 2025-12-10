@@ -253,6 +253,14 @@ jobs:
           sed -i "s/$find/$replace/g" SlimeVR-Tracker-nRF/boards/xiao_ble.overlay
           printf "\n\nCONFIG_USE_SENSOR_CLOCK=y" >> SlimeVR-Tracker-nRF/prj.conf
 
+      - name: 🔧 Adjusting Clock
+        if: ${{ (matrix.boards.type == 'tracker') && (contains(matrix.boards.filename, 'Mochi')) }}
+        run: |
+          cd zephyr-workspace
+          find="CONFIG_CLOCK_CONTROL_NRF_K32SRC_SYNTH=n"
+          replace="CONFIG_CLOCK_CONTROL_NRF_K32SRC_SYNTH=y"
+          sed -i "s/$find/$replace/g" SlimeVR-Tracker-nRF/prj.conf
+
       - name: 🔧 Disabling Extra Action
         if: ${{ (matrix.boards.type == 'tracker') && (matrix.boards.extraaction == 'disabled') }}
         run: |
@@ -351,7 +359,7 @@ jobs:
 
       - name: 💾 Upload Artifact - ${{ matrix.boards.boardname }}
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           # Artifact name
           name: ${{ matrix.boards.filename }}.${{ matrix.boards.fileformat }}
