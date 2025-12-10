@@ -405,7 +405,7 @@ jobs:
 
       - name: 💾 Upload Artifact - ${{ matrix.boards.boardname }}
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           # Artifact name
           name: ${{ matrix.boards.filename }}.${{ matrix.boards.fileformat }}
