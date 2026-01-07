@@ -260,6 +260,7 @@ jobs:
           find="CONFIG_CLOCK_CONTROL_NRF_K32SRC_SYNTH=n"
           replace="CONFIG_CLOCK_CONTROL_NRF_K32SRC_SYNTH=y"
           sed -i "s/$find/$replace/g" SlimeVR-Tracker-nRF/prj.conf
+          sed -i '/^[[:space:]]*#if defined(NRF_CLOCK_USE_EXTERNAL_LFCLK_SOURCES)/,/^[[:space:]]*#endif/ s|^|//|' SlimeVR-Tracker-nRF/src/connection/esb.c
 
       - name: 🔧 Disabling Extra Action
         if: ${{ (matrix.boards.type == 'tracker') && (matrix.boards.extraaction == 'disabled') }}
