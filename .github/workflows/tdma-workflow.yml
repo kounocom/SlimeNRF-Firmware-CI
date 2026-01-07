@@ -116,7 +116,6 @@ jobs:
                   {boardname: "mochi_uf2/nrf52833", clk: "enabled", type: "tracker", extraaction: "enabled", fileformat: "hex", filename: "SlimeNRF_Tracker_TDMA_Mochi", mergehex: "", magnetometer: "disabled", sleep: "enabled", sw0: "enabled"}, 
                   {boardname: "mochi_uf2/nrf52833", clk: "enabled", type: "tracker", extraaction: "enabled", fileformat: "hex", filename: "SlimeNRF_Tracker_TDMA_NoSleep_Mochi", mergehex: "", magnetometer: "disabled", sleep: "disabled", sw0: "enabled"}, 
                 ]
-    if: always()
     runs-on: ubuntu-latest
     steps:
 
