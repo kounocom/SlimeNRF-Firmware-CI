@@ -376,6 +376,7 @@ jobs:
         if: ${{ (matrix.boards.type == 'tracker') && (contains(matrix.boards.filename, 'Stacked')) }}
         run: |
           cd zephyr-workspace
+          printf "\n\nCONFIG_SENSOR_USE_6_SIDE_CALIBRATION=y" >> Stacked-SmolSlime/prj.conf
           sudo cp -r SlimeVR-Tracker-nRF/vqf-c Stacked-SmolSlime/
           sudo cp -r SlimeVR-Tracker-nRF/Fusion Stacked-SmolSlime/
           sudo cp -r SlimeVR-Tracker-nRF/NXP-ISSDK-SensorFusion Stacked-SmolSlime/
