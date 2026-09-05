@@ -1188,7 +1188,7 @@
     },
     "slimevr_tracker_nrf_receiver_tdma": {
       "repository_url": "https://github.com/SlimeVR/SlimeVR-Tracker-nRF-Receiver.git",
-      "repository_revision": "tdma-pairing",
+      "repository_revision": "tdma",
       "profile": "sdk_slime_v3_1_branch"
     },
     "slimevr_tracker_nrf_receiver_dev": {
@@ -1223,7 +1223,7 @@
     },
     "slimevr_tracker_nrf_tdma": {
       "repository_url": "https://github.com/SlimeVR/SlimeVR-Tracker-nRF.git",
-      "repository_revision": "tdma-pairing",
+      "repository_revision": "tdma",
       "profile": "sdk_slime_v3_1_branch"
     },
     "slimevr_tracker_nrf_dev": {
